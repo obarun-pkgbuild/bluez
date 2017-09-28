@@ -7,7 +7,7 @@
 pkgbase=bluez
 pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-hid2hci' 'bluez-plugins')
 pkgver=5.47
-pkgrel=2
+pkgrel=3
 url="http://www.bluez.org/"
 arch=(x86_64)
 license=('GPL2')
@@ -65,7 +65,10 @@ package_bluez() {
   # fix module loading errors
   install -dm755 ${pkgdir}/usr/lib/modprobe.d
   install -Dm644 ${srcdir}/bluetooth.modprobe ${pkgdir}/usr/lib/modprobe.d/bluetooth-usb.conf	
-  
+  # load module at system start required by some functions
+  # https://bugzilla.kernel.org/show_bug.cgi?id=196621
+  install -dm755 $pkgdir/usr/lib/modules-load.d
+  echo "crypto_user" > $pkgdir/usr/lib/modules-load.d/bluez.conf
 }
 
 package_bluez-utils() {

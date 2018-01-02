@@ -7,7 +7,7 @@
 pkgbase=bluez
 pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-hid2hci' 'bluez-plugins')
 pkgver=5.48
-pkgrel=2
+pkgrel=3
 url="http://www.bluez.org/"
 arch=(x86_64)
 license=('GPL2')
@@ -42,7 +42,7 @@ check() {
 
 package_bluez() {
   pkgdesc="Daemons for the bluetooth protocol stack"
-  depends=('libical' 'dbus' 'glib2' 'alsa-libs')
+  depends=('libical' 'dbus' 'glib2' 'alsa-lib')
   backup=('etc/dbus-1/system.d/bluetooth.conf'
           'etc/bluetooth/main.conf')
   conflicts=('obexd-client' 'obexd-server')

@@ -7,18 +7,27 @@
 pkgbase=bluez
 pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-hid2hci' 'bluez-plugins')
 pkgver=5.49
-pkgrel=2
+pkgrel=4
 url="http://www.bluez.org/"
 arch=(x86_64)
 license=('GPL2')
 makedepends=('dbus' 'libical' 'alsa-lib')
 source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname}-${pkgver}.tar.xz
-        bluetooth.modprobe)
+        bluetooth.modprobe
+        refresh_adv_manager_for_non-LE_devices.diff
+        gatt_fix_crash.diff)
 # see https://www.kernel.org/pub/linux/bluetooth/sha256sums.asc
 sha256sums=('33301d7a514c73d535ee1f91c2aed1af1f2e53efe11d3ac06bcf0d7abed2ce95'
-            '46c021be659c9a1c4e55afd04df0c059af1f3d98a96338236412e449bf7477b4')
+            '46c021be659c9a1c4e55afd04df0c059af1f3d98a96338236412e449bf7477b4'
+            '5baa5b82f3b120f24c61b2e87870a9d8db44b15df9fe2557dad745894df2d501'
+            'd66560f321ade2ecf6478850d1ddc1952e439c6fdd14ae885e49355bc9aa1e4c')
 validpgpkeys=('6DD4217456569BA711566AC7F06E8FDE7B45DAAC') # Eric Vidal
 
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -Np1 -i ../refresh_adv_manager_for_non-LE_devices.diff
+  patch -Np1 -i ../gatt_fix_crash.diff
+}
 build() {
   cd ${pkgname}-${pkgver}
   ./configure \

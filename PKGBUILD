@@ -7,11 +7,11 @@
 pkgbase=bluez
 pkgname=('bluez' 'bluez-utils' 'bluez-libs' 'bluez-cups' 'bluez-hid2hci' 'bluez-plugins')
 pkgver=5.49
-pkgrel=4
+pkgrel=5
 url="http://www.bluez.org/"
 arch=(x86_64)
 license=('GPL2')
-makedepends=('dbus' 'libical' 'alsa-lib')
+makedepends=('dbus' 'libical' 'alsa-lib' 'json-c')
 source=(https://www.kernel.org/pub/linux/bluetooth/${pkgname}-${pkgver}.tar.xz
         bluetooth.modprobe
         refresh_adv_manager_for_non-LE_devices.diff
@@ -37,6 +37,7 @@ build() {
           --localstatedir=/var \
           --libexecdir=/usr/lib \
           --enable-sixaxis \
+          --enable-mesh \
           --enable-experimental \
           --disable-systemd \
           --enable-library # this is deprecated
